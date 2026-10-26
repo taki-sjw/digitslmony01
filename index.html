@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111a30">
+  <title>กระเป๋าเงิน</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <main class="main-content">
+      <div class="page-content">
+        <section class="page-heading">
+          <div>
+            <h1>กระเป๋าเงิน</h1>
+            <p class="page-description">จัดการยอดเงิน ฝากและถอนเงิน</p>
+          </div>
+          <button class="clear-all-button" id="clear-all-button" type="button">ล้างข้อมูลทั้งหมด</button>
+        </section>
+
+        <section class="balance-card" aria-labelledby="balance-title">
+          <div class="balance-topline">
+            <div class="balance-label"><span class="wallet-icon">▣</span> <span id="balance-title">ยอดเงินคงเหลือ</span></div>
+            <span class="account-tag"><span></span> บัญชีหลัก</span>
+          </div>
+          <div class="balance-amount" id="balance-amount" aria-live="polite">฿0.00</div>
+          <div class="balance-bottom">
+            <span>ยอดเงินพร้อมใช้</span>
+            <button class="clear-balance-button" id="clear-balance-button" type="button">ล้างเงินในบัญชี</button>
+          </div>
+          <div class="balance-decoration decoration-one"></div>
+          <div class="balance-decoration decoration-two"></div>
+        </section>
+
+        <section class="daily-summary" aria-label="สรุปรายรับรายจ่ายวันนี้">
+          <article class="summary-card income-card">
+            <div class="summary-card-top">
+              <span class="summary-icon">↓</span>
+              <span class="summary-label">รายรับวันนี้</span>
+            </div>
+            <strong class="summary-amount" id="today-income">฿0.00</strong>
+            <span class="summary-caption">เงินที่ฝากเข้าวันนี้</span>
+          </article>
+          <article class="summary-card expense-card">
+            <div class="summary-card-top">
+              <span class="summary-icon">↑</span>
+              <span class="summary-label">รายจ่ายวันนี้</span>
+            </div>
+            <strong class="summary-amount" id="today-expense">฿0.00</strong>
+            <span class="summary-caption">เงินที่ถอนออกวันนี้</span>
+          </article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel transfer-panel" aria-labelledby="transfer-title">
+            <div class="panel-heading">
+              <div>
+                <h2 id="transfer-title">ทำรายการ</h2>
+                <p>เลือกประเภทและระบุจำนวนเงินที่ต้องการ</p>
+              </div>
+              <span class="heading-icon">⇄</span>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="ประเภทการทำรายการ">
+              <button class="tab-button active" id="deposit-tab" type="button" role="tab" aria-selected="true" aria-controls="transfer-form" data-type="deposit">
+                <span>↓</span> ฝากเงิน
+              </button>
+              <button class="tab-button" id="withdraw-tab" type="button" role="tab" aria-selected="false" aria-controls="transfer-form" data-type="withdraw">
+                <span>↑</span> ถอนเงิน
+              </button>
+            </div>
+
+            <form id="transfer-form" class="transfer-form">
+              <input type="hidden" id="transaction-type" value="deposit">
+              <label class="field-label" for="amount-input">จำนวนเงิน</label>
+              <div class="amount-input-wrap">
+                <span class="currency-prefix">฿</span>
+                <input id="amount-input" name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0.00" required>
+                <button class="clear-amount-button" id="clear-amount-button" type="button" aria-label="ล้างจำนวนเงิน" title="ล้างจำนวนเงิน">ล้าง</button>
+                <span class="currency-suffix">THB</span>
+              </div>
+              <div class="quick-amounts" aria-label="เลือกจำนวนเงิน">
+                <button type="button" data-amount="500">฿500</button>
+                <button type="button" data-amount="1000">฿1,000</button>
+                <button type="button" data-amount="5000">฿5,000</button>
+                <button type="button" data-amount="10000">฿10,000</button>
+              </div>
+
+              <div class="category-field" id="expense-category-field" hidden>
+                <label class="field-label" for="expense-category">ใช้จ่ายเกี่ยวกับอะไร <span class="required-mark">*</span></label>
+                <div class="select-wrap">
+                  <span class="method-icon" aria-hidden="true">◇</span>
+                  <select id="expense-category" name="category" disabled>
+                    <option value="">เลือกหมวดหมู่รายจ่าย</option>
+                    <option value="อาหารและเครื่องดื่ม">อาหารและเครื่องดื่ม</option>
+                    <option value="เดินทาง">เดินทาง</option>
+                    <option value="ช้อปปิ้ง">ช้อปปิ้ง</option>
+                    <option value="บิลและค่าสาธารณูปโภค">บิลและค่าสาธารณูปโภค</option>
+                    <option value="บ้านและครอบครัว">บ้านและครอบครัว</option>
+                    <option value="สุขภาพ">สุขภาพ</option>
+                    <option value="บันเทิง">บันเทิง</option>
+                    <option value="การศึกษา">การศึกษา</option>
+                    <option value="อื่น ๆ">อื่น ๆ</option>
+                  </select>
+                  <span class="select-chevron" aria-hidden="true">⌄</span>
+                </div>
+              </div>
+
+              <label class="field-label" for="method-select">ช่องทางทำรายการ</label>
+              <div class="select-wrap">
+                <span class="method-icon" aria-hidden="true">▤</span>
+                <select id="method-select" name="method">
+                  <option value="ธนาคารกสิกรไทย •••• 4281">ธนาคารกสิกรไทย •••• 4281</option>
+                  <option value="ธนาคารไทยพาณิชย์ •••• 9012">ธนาคารไทยพาณิชย์ •••• 9012</option>
+                  <option value="พร้อมเพย์ •••• 6289">พร้อมเพย์ •••• 6289</option>
+                </select>
+                <span class="select-chevron" aria-hidden="true">⌄</span>
+              </div>
+
+              <div class="transfer-note"><span aria-hidden="true">i</span><span id="transfer-note-text">ตัวอย่างนี้จำลองการฝากเงินและอัปเดตยอดบนหน้าจอเท่านั้น</span></div>
+              <button class="submit-button" id="submit-button" type="submit"><span id="submit-label">ฝากเงิน</span><span aria-hidden="true">→</span></button>
+              <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+
+        <section class="panel chart-panel" aria-labelledby="chart-title">
+          <div class="panel-heading chart-heading">
+            <div>
+              <h2 id="chart-title">กราฟรายรับ–รายจ่าย</h2>
+              <p id="chart-description">สรุปยอดแยกตามวันในช่วง 7 วันที่ผ่านมา</p>
+            </div>
+            <div class="chart-tabs" role="tablist" aria-label="ช่วงเวลาของกราฟ">
+              <button class="chart-tab active" type="button" role="tab" aria-selected="true" data-period="day">วัน</button>
+              <button class="chart-tab" type="button" role="tab" aria-selected="false" data-period="month">เดือน</button>
+              <button class="chart-tab" type="button" role="tab" aria-selected="false" data-period="year">ปี</button>
+            </div>
+          </div>
+          <div class="chart-legend" aria-label="คำอธิบายกราฟ">
+            <span><i class="legend-swatch income-swatch"></i> รายรับ</span>
+            <span><i class="legend-swatch expense-swatch"></i> รายจ่าย</span>
+          </div>
+          <div class="chart-scroll">
+            <svg id="wallet-chart" class="wallet-chart" viewBox="0 0 720 270" role="img" aria-label="กราฟแสดงรายรับและรายจ่ายรายวัน"></svg>
+          </div>
+          <p class="chart-empty" id="chart-empty" hidden>ยังไม่มีรายการในช่วงเวลานี้</p>
+        </section>
+
+        <section class="panel history-panel" aria-labelledby="history-title">
+          <div class="panel-heading history-heading">
+            <div>
+              <h2 id="history-title">ประวัติการใช้เงิน</h2>
+              <p>รายการฝากและถอนเงินของคุณ</p>
+            </div>
+            <span class="history-date" id="history-date"></span>
+          </div>
+          <div class="table-scroll">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th scope="col">รายการ</th>
+                  <th scope="col">หมวดหมู่</th>
+                  <th scope="col">ช่องทาง</th>
+                  <th scope="col">วันและเวลา</th>
+                  <th scope="col">จำนวนเงิน</th>
+                </tr>
+              </thead>
+              <tbody id="history-body">
+                <tr class="empty-history">
+                  <td colspan="5">ยังไม่มีประวัติการทำรายการ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <footer class="page-footer">ข้อมูลบันทึกไว้ในเบราว์เซอร์ของอุปกรณ์นี้ · หากล้างข้อมูลเบราว์เซอร์ ประวัติอาจถูกลบ · ตัวอย่างนี้ไม่มีการทำธุรกรรมเงินจริง</footer>
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
